@@ -1,10 +1,12 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+clear
 
 # Function to encrypt text using Caesar cipher
 
 caesar_encrypt() {
     local shift="$1"
-    tr "A-Za-z" "[${ALPHABET:shift}${ALPHABET:0:shift}]"
+    tr "a-z" "$(echo "${ALPHABET:shift}${ALPHABET::shift}" | tr 'A-Z' 'a-z')" | tr "A-Z" "$(echo "${ALPHABET:shift}${ALPHABET::shift}" | tr 'a-z' 'A-Z')"
 }
 
 # Define the alphabet for reference
@@ -54,6 +56,3 @@ fi
 caesar_encrypt "$shift_value" < "$input_file" > "$output_file"
 
 echo "Encryption completed. Output written to $output_file"
-
-# We can run our script and encrypt by using -s -i -o parameters 
-
